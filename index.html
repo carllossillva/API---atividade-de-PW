@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consulta API</title>
+  <style>
+    /* Estilos para o layout do site */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    #resultado {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Consulta de Dados via API</h1>
+  <form id="formulario">
+    <label for="cep">Digite o CEP:</label>
+    <input type="text" id="cep" name="cep">
+    <button type="submit">Consultar</button>
+  </form>
+  <div id="resultado"></div>
+
+  <script>
+    document.getElementById("formulario").addEventListener("submit", function(event) {
+      event.preventDefault(); // Impede o envio do formulário
+
+      var cep = document.getElementById("cep").value; // Obtém o valor do campo de CEP
+      var url = "https://viacep.com.br/ws/" + cep + "/json/"; // URL da API de consulta de CEP
+
+      // Faz a requisição à API
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Exibe o resultado no site
+          var resultado = document.getElementById("resultado");
+          resultado.innerHTML = `
+            <h2>Resultado</h2>
+            <p>CEP: ${data.cep}</p>
+            <p>Logradouro: ${data.logradouro}</p>
+            <p>Bairro: ${data.bairro}</p>
+            <p>Cidade: ${data.localidade}</p>
+            <p>Estado: ${data.uf}</p>
+          `;
+        })
+        .catch(error => {
+          // Exibe mensagem de erro em caso de falha na consulta
+          var resultado = document.getElementById("resultado");
+          resultado.innerHTML = "<p>Erro ao consultar o CEP. Verifique se o valor digitado é válido.</p>";
+        });
+    });
+  </script>
+</body>
+</html>

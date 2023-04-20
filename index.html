@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Consulta API</title>
+  <title>Consulta CEP</title>
   <style>
     /* Estilos para o layout do site */
     body {
@@ -10,6 +10,10 @@
     }
 
     h1 {
+      margin-bottom: 20px;
+    }
+
+    #formulario {
       margin-bottom: 20px;
     }
 
@@ -31,7 +35,7 @@
     }
 
     .modal-content {
-      background-color: #fefefe;
+      background-color: #729bf4;
       margin: 15% auto;
       padding: 20px;
       border: 1px solid #888;
@@ -40,7 +44,7 @@
     }
 
     .close {
-      color: #aaa;
+      color: #000000;
       float: right;
       font-size: 28px;
       font-weight: bold;
@@ -56,13 +60,13 @@
   </style>
 </head>
 <body>
-  <h1>Consulta de Dados via API</h1>
+  <h1>Consulta de CEP</h1>
   <form id="formulario">
     <label for="cep">Digite o CEP:</label>
     <input type="text" id="cep" name="cep">
     <button type="submit">Consultar</button>
   </form>
-  
+
   <!-- Modal para exibir o resultado -->
   <div id="myModal" class="modal">
     <div class="modal-content">
@@ -105,6 +109,7 @@
           window.onclick = function(event) {
             if (event.target == modal) {
               modal.style.display = "none";
+           
             }
           }
         })

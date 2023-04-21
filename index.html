@@ -2,71 +2,24 @@
 <html>
 <head>
   <title>Consulta CEP</title>
-  <style>
-    /* Estilos para o layout do site */
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-
-    h1 {
-      margin-bottom: 20px;
-    }
-
-    #formulario {
-      margin-bottom: 20px;
-    }
-
-    #resultado {
-      margin-top: 20px;
-    }
-
-    /* Estilos para o modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content {
-      background-color: #729bf4;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%;
-      max-width: 600px;
-    }
-
-    .close {
-      color: #000000;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: black;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h1>Consulta de CEP</h1>
-  <form id="formulario">
-    <label for="cep">Digite o CEP:</label>
-    <input type="text" id="cep" name="cep">
-    <button type="submit">Consultar</button>
-  </form>
 
+  <div id="itens">
+  <div id="title">
+    <h1 id="h1">
+      Consultar CEP
+    </h1>
+  </div>
+  
+  <form id="formulario">
+    <label id="label" for="cep"></label>
+    <input type="text" id="cep" name="cep" placeholder="Digite o CEP"autocomplete="off" required>
+    <button type="submit">Consultar</button>
+    
+  </form>
+</div>
   <!-- Modal para exibir o resultado -->
   <div id="myModal" class="modal">
     <div class="modal-content">
@@ -75,50 +28,7 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById("formulario").addEventListener("submit", function(event) {
-      event.preventDefault(); // Impede o envio do formulário
-
-      var cep = document.getElementById("cep").value; // Obtém o valor do campo de CEP
-      var url = "https://viacep.com.br/ws/" + cep + "/json/"; // URL da API de consulta de CEP
-
-      // Faz a requisição à API
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          // Exibe o resultado em um modal
-          var modal = document.getElementById("myModal");
-          var resultado = document.getElementById("resultado");
-          resultado.innerHTML = `
-            <h2>Resultado</h2>
-            <p>CEP: ${data.cep}</p>
-            <p>Logradouro: ${data.logradouro}</p>
-            <p>Bairro: ${data.bairro}</p>
-            <p>Cidade: ${data.localidade}</p>
-            <p>Estado: ${data.uf}</p>
-          `;
-          modal.style.display = "block";
-
-          // Fecha o modal quando o usuário clicar no botão de fechar
-          var span = document.getElementsByClassName("close")[0];
-          span.onclick = function() {
-            modal.style.display = "none";
-          }
-
-          // Fecha o modal quando o usuário clicar fora do modal
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
-           
-            }
-          }
-        })
-        .catch(error => {
-            // Exibe mensagem de erro em caso de falha na consulta
-          var resultado = document.getElementById("resultado");
-          resultado.innerHTML = "<p>Erro ao consultar o CEP. Verifique se o valor digitado é válido.</p>";
-        });
-    });
-  </script>
+  
+  <script src="script.js"></script>
 </body>
 </html>
